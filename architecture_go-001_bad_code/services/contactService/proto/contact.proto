@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;proto";
+
+// CONTACT ----------------------------------
+message Contact {
+  message AttributeList {
+    message AttributeItem {
+      string id = 1;
+      string value = 2;
+    }
+
+    repeated AttributeItem list = 1;
+  }
+
+  string id = 1;
+  string full_name = 2;
+  string email = 3;
+  string phone_number = 4;
+  int32 age = 5;
+  enum Gender {
+    NONE = 0;
+    MALE = 1;
+    FEMALE = 2;
+  }
+  int32 gender = 6;
+  string city = 7;
+  string file_name = 8;
+  int64 created_at = 9;
+  int64 modified_at = 10;
+  string created_by = 11;
+  int32 attempts = 12;
+  string in_groups = 13;
+  AttributeList attributes = 14;
+  bool is_archived = 15;
+  string gtm = 16;
+  bool is_blacklist = 17;
+  string name = 18;
+  string surname = 19;
+  string patronymic = 20;
+  string parameter_1 = 21;
+  string parameter_2 = 22;
+  string timezone = 23;
+  string error = 24;
+  int64 last_call_time = 25;
+}
+
+message ContactIdAndCreatedBy {
+  string id = 1;
+  string user_uuid = 2;
+  bool is_blacklist = 3;
+}
+
+message AttributeOwnerId {
+  string id = 1;
+}
+
+message ContactAttributeKey {
+  string id = 1;
+  string key_title = 2;
+  string created_by = 3;
+  int64 created_at = 4;
+  int64 modified_at = 5;
+}
+
+message ContactAttributeKeyList {
+  int32 total = 1;
+  repeated ContactAttributeKey list = 2;
+}
+
+service ContactService {
+  rpc Create (Contact) returns (Contact) {
+  }
+  rpc Update (Contact) returns (Contact) {
+  }
+  rpc ReadById (ContactIdAndCreatedBy) returns (Contact) {
+  }
+  rpc GetAttributeKeyList (AttributeOwnerId) returns (ContactAttributeKeyList) {}
+}
